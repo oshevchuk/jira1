@@ -12,7 +12,7 @@ export class HttpService{
         this.ApiUrl="http://localhost:8080/rest/api/2/issue/";
     }
 
-    public CreateIssue(userpwd:string, summary:string, description:string){
+    public CreateIssue(userpwd:string, summary:string, description:string, type:string){
         let headers=new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Basic '+userpwd);
@@ -20,11 +20,21 @@ export class HttpService{
         let options = new RequestOptions({headers: headers});
 
         let data={
-            project: { key : "Test" },
+            project: { key : "test" },
             summary: summary,
-            description: description
+            description: description,
+            issuetype: {
+                name: type
+            }
         };
 
-        return this.http.post(this.ApiUrl, {}, options);
+        let j_data={
+            fields: data
+        };
+
+
+        // console.log(JSON.stringify(j_data));
+
+        return this.http.post(this.ApiUrl, JSON.stringify(j_data), options);
     }
 }

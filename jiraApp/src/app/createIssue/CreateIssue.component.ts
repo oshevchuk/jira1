@@ -27,7 +27,10 @@ export class CreateIssue {
         console.log(this.user + ":" + this.password);
         console.log(enc(this.user + ":" + this.password));
         
-        
+        this.httpService.CreateIssue(enc(this.user + ":" + this.password), this.summary, this.description, this.issueType)
+            .subscribe(data=>{
+                console.log(data);
+            });
         
         
 
