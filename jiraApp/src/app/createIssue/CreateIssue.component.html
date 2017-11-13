@@ -2,29 +2,30 @@
     <h1>Create Issue</h1>
     <p>
         Project name:
-        <input type="text" name="project_name" required>
+        <input type="text" [(ngModel)]="projectName" required name="projName">
     </p>
     <p>
         Summary:
-        <input type="text" name="summary" required>
+        <input type="text" name="summary" required [(ngModel)]="summary">
     </p>
     <p>
         Description:
-        <input type="text" name="description" required>
+        <input type="text" name="description" required [(ngModel)]="description">
     </p>
     <p>
         Issue type:
-        <input type="text" name="">
+        <input type="text" name="issueType" required [(ngModel)]="issueType">
     </p>
     <p>
         User name:
-        <input type="text">
+        <input type="text" name="user" required [(ngModel)]="user">
     </p>
+
     <p>
         Password
-        <input type="password">
+        <input type="password" required name="pas" [(ngModel)]="password">
     </p>
     <p>
-        <input type="submit">
+        <input type="submit" name="btn" (click)="createIssue()">
     </p>
 </form>
