@@ -4,6 +4,8 @@
 import {Component} from "@angular/core";
 import {HttpService} from "../httpService";
 
+declare var $:any;
+
 @Component({
     selector: 'createIssue',
     templateUrl: './CreateIssue.component.html',
@@ -13,9 +15,9 @@ import {HttpService} from "../httpService";
 
 export class CreateIssue {
     public projectName:string = 'TS';
-    public summary:string = '';
-    public description:string = '';
-    public issueType:string = '';
+    public summary:string = 'test';
+    public description:string = 'test';
+    public issueType:string = 'test';
     public user:string = 'admin';
     public password:string = "admin";
 
@@ -26,12 +28,43 @@ export class CreateIssue {
     public createIssue() {
         console.log(this.user + ":" + this.password);
         console.log(enc(this.user + ":" + this.password));
-        
-        this.httpService.CreateIssue(enc(this.user + ":" + this.password), this.summary, this.description, this.issueType)
-            .subscribe(data=>{
-                console.log(data);
+
+        // console.log($(window));
+
+        let data={
+            project: { key : "test" },
+            summary: this.summary,
+            description: this.description,
+            issuetype: {
+                name: this.issueType
+            }
+        };
+
+        let j_data={
+            fields: data
+        };
+
+        var jqxhr = $.post( "http://localhost:8080/rest/api/2/issue/", JSON.stringify(j_data), function() {
+            console.log('succes');
+        })
+            .done(function(e) {
+                console.log(e);
+            })
+            .fail(function(e) {
+                console.log(e);
+            })
+            .always(function(e) {
+                console.log('finist');
             });
-        
+
+
+        //
+        // this.httpService.CreateIssue(enc(this.user + ":" + this.password), this.summary, this.description, this.issueType)
+        // // this.httpService.CreateIssue(WindowBase64.encode(this.user + ":" + this.password), this.summary, this.description, this.issueType)
+        //     .subscribe(data=>{
+        //         console.log(data);
+        //     });
+        //
         
 
         function enc(string) {

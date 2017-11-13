@@ -15,6 +15,7 @@ export class HttpService{
     public CreateIssue(userpwd:string, summary:string, description:string, type:string){
         let headers=new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Authorization', 'Basic '+userpwd);
 
         let options = new RequestOptions({headers: headers});
@@ -35,6 +36,6 @@ export class HttpService{
 
         // console.log(JSON.stringify(j_data));
 
-        return this.http.post(this.ApiUrl, JSON.stringify(j_data), options);
+        return this.http.post(this.ApiUrl, options);
     }
 }
