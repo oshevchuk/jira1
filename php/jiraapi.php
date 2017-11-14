@@ -1,4 +1,6 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+
 $base64_usrpwd = base64_encode($_POST['user'].':'.$_POST['pass']);
 
 $ch = curl_init();
@@ -8,7 +10,10 @@ curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
     'Authorization: Basic '.$base64_usrpwd));
 
-$arr['project'] = array( 'key' => 'TEST');
+echo $_POST["projectName"];
+
+//$arr['project'] = array( 'key' => 'TEST');
+$arr['project'] = array( 'key' => $_POST["projectName"]);
 $arr['summary'] = $_POST['summary'];
 $arr['description'] = $_POST['description'];
 $arr['issuetype'] = array( 'name' => $_POST['type']);
